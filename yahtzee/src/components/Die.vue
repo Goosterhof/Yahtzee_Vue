@@ -1,9 +1,10 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div class="dice" v-for="diceUni in diceSides"></div>
-      </div>
+  <div class="row w-50 m-auto">
+    <div class="col" v-for="diceUni  in diceUni" >
+
+      <a class="unicode"> {{diceUni(diceUni)}} </a>
+
+    </div>
     </div>
   </div>
 </template>
@@ -11,26 +12,29 @@
 <script>
 export default {
   name: 'Die',
-  props: {
-    name: name,
-  },
   data() {
     return {
-      diceSides: 6,
-      diceUni: ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685'],
+      diceFace: 6,
     }
   },
-  methods: {
-    methodName(){
-
+  computed:{
+    diceUni(){
+      let diceUni = [];
+      for (var i = 0; i < 5; i++) {
+        diceUni.push(` "\\u268${Math.ceil(Math.random() * 6 )}\" `)
+      }
+      console.log(diceUni);
+      return diceUni
     }
   },
 }
 </script>
 
 <style scoped>
-.dice{
-  width: 50px;
-  height: 50px;
-}
+  .unicode{
+  	font-size:70px;
+    text-align:center;
+    text-decoration: none;
+    color: black
+  }
 </style>
