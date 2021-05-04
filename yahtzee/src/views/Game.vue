@@ -7,6 +7,10 @@
     </div>
     <div class="row">
       <div class="col">
+        <Die/>
+        <Dice/>
+        <Score/>
+        <Button name="Throw"/>
 
       </div>
     </div>
@@ -14,5 +18,29 @@
 </template>
 
 <script>
-  
+import Die from '../components/Die'
+import Dice from '../components/Dice'
+import Score from '../components/Score'
+import Button from '../components/Button'
+
+
+export default{
+  components: {
+    Die,
+    Dice,
+    Score,
+    Button,
+
+  }
+}
+
+
 </script>
+
+
+
+
+
+<style scoped>
+
+</style>
