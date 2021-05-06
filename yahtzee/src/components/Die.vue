@@ -1,10 +1,6 @@
 <template>
   <div class="row w-50 m-auto">
-    <div class="col" v-for="diceUni  in diceUni" >
-
-      <a class="unicode"> {{diceUni(diceUni)}} </a>
-
-    </div>
+    <div :class="{'toggle': toggle }" @click="toggleClass" class="col text-center p-3 m-1" v-for="die in diceUni" v-html="die"></div>
     </div>
   </div>
 </template>
@@ -14,27 +10,31 @@ export default {
   name: 'Die',
   data() {
     return {
-      diceFace: 6,
+      toggle: false
     }
   },
   computed:{
     diceUni(){
-      let diceUni = [];
+    let diceUni = [];
       for (var i = 0; i < 5; i++) {
-        diceUni.push(` "\\u268${Math.ceil(Math.random() * 6 )}\" `)
+        diceUni[i] = Math.ceil(Math.random() * 6)
       }
-      console.log(diceUni);
-      return diceUni
+      return diceUni;
     }
   },
+  methods: {
+    toggleClass(event) {
+       event.target.classList.toggle('toggle')
+    }
+  }
+
+
 }
 </script>
 
 <style scoped>
-  .unicode{
-  	font-size:70px;
-    text-align:center;
-    text-decoration: none;
-    color: black
+  .toggle{
+    border-bottom: 1px solid #000;
+    text-decoration: bold;
   }
 </style>
