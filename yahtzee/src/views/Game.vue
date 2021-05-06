@@ -6,37 +6,32 @@
         <hr class="w-50 m-auto">
       </div>
     </div>
-
     <Dice/>
-
-
-    <Score/>
-
-
+    
+    <Turn/>
+    <Scoreboard/>
   </div>
 </template>
 
 <script>
 import Dice from '../components/Dice'
-import Score from '../components/Score'
+import Turn from '../components/Turn'
 import Button from '../components/Button'
+import Scoreboard from '../components/Scoreboard'
 
 
 export default{
   components: {
     Dice,
-    Score,
+    Turn,
     Button,
+    Scoreboard,
 
   }
 }
 
 
 </script>
-
-
-
-
 
 <style scoped>
 

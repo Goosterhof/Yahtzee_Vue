@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <button class="btn btn-primary" type="button" name="button">{{name}}</button>
+    <button @click="onClick()" class="btn btn-primary btn-sm" type="button">{{name}}</button>
   </div>
 </template>
 
@@ -8,15 +8,15 @@
 export default {
   name: 'Button',
   props: {
-    name: name
+    name: String
   },
   data() {
     return {
     }
   },
   methods: {
-    methodName(){
-
+    onClick(){
+      this.$emit('btn-click')
     }
   },
 }
