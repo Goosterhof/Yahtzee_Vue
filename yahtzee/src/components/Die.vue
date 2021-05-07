@@ -1,67 +1,58 @@
 <template>
-  <div class="row w-50 m-auto">
-    <div :class="{'toggle': toggle }"
-        @click="toggleClass"
-        v-for="die in die"
-        :data-attribute="die"
-        class="col text-center p-1" >
-      </div>
-    </div>
-  </div>
+  <div :die="die"
+     :class="{'toggle': toggle }"
+     @click="toggleClass"
+     class="col text-center p-1" >
+   </div>
 </template>
 
 <script>
 export default {
   name: 'Die',
+  props: {
+    die: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       toggle: false,
-      dieArr: [],
-    }
-  },
-  computed:{
-    die(){
-    let die = [];
-      for (var i = 0; i < 5; i++) {
-        die[i] = Math.ceil(Math.random() * 6)
-      }
-      return die;
     }
   },
   methods: {
     toggleClass(event) {
-       event.target.classList.toggle('toggle')
+       event.target.classList.toggle('keep')
     }
   }
-
-
 }
+
 </script>
 
 <style scoped>
-  .toggle{
+  .keep{
     box-shadow:0px -4px 0px -0px #000 inset;
-    font-weight: 900;
+    font-weight: 700;
   }
   .col{
-    font-size: 70px
+    font-size: 50px
   }
-  .col[data-attribute="1"]:after{
+  .col[die="1"]:after{
     content: '\2680';
   }
-  .col[data-attribute="2"]:after{
+  .col[die="2"]:after{
     content: '\2681';
   }
-  .col[data-attribute="3"]:after{
+  .col[die="3"]:after{
     content: '\2682';
   }
-  .col[data-attribute="4"]:after{
+  .col[die="4"]:after{
     content: '\2683';
   }
-  .col[data-attribute="5"]:after{
+  .col[die="5"]:after{
     content: '\2684';
   }
-  .col[data-attribute="6"]:after{
+  .col[die="6"]:after{
     content: '\2685';
   }
 </style>

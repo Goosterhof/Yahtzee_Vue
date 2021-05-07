@@ -1,6 +1,11 @@
 <template>
   <div class="container-fluid">
-    <button @click="onClick()" class="btn btn-primary btn-sm" type="button">{{name}}</button>
+    <button
+      @click="onClick()"
+      class="btn btn-primary btn-sm"
+      type="button"
+      :disabled="disable"
+      >{{name}}</button>
   </div>
 </template>
 
@@ -8,10 +13,11 @@
 export default {
   name: 'Button',
   props: {
-    name: String
-  },
-  data() {
-    return {
+    name: String,
+
+    disable:{
+      type: Boolean,
+      default: false,
     }
   },
   methods: {
@@ -21,7 +27,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-
-</style>

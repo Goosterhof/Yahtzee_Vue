@@ -7,15 +7,14 @@
       </div>
     </div>
     <Dice/>
-    
-    <Turn/>
     <Scoreboard/>
+    <Reset/>
   </div>
 </template>
 
 <script>
 import Dice from '../components/Dice'
-import Turn from '../components/Turn'
+import Reset from '../components/Reset'
 import Button from '../components/Button'
 import Scoreboard from '../components/Scoreboard'
 
@@ -23,10 +22,18 @@ import Scoreboard from '../components/Scoreboard'
 export default{
   components: {
     Dice,
-    Turn,
     Button,
+    Reset,
     Scoreboard,
-
+  },
+  data() {
+    return {
+    }
+  },
+  methods: {
+    getScore(){
+      console.log('Get Score');
+    },
   }
 }
 
@@ -34,5 +41,13 @@ export default{
 </script>
 
 <style scoped>
+#app .m-auto .row{
+	clear:both;
+	visibility:inherit;
+}
+
+
+
+
 
 </style>
