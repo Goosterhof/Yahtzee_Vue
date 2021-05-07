@@ -39,8 +39,11 @@ export default {
     background: grey!important;
     color: #fff !important;
   }
-.text-center:hover{
-  background-color: rgba(0, 0, 0, 0.2);
-}
+  .text-center:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  tbody{
+    font-size: 15px;
+  }
 
 </style>

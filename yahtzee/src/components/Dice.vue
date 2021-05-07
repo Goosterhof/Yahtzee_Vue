@@ -5,6 +5,8 @@
 
       <Die/>
 
+      <Button @btn-click="log" name="log"/>
+
       <div class="btn-group mt-3" role="group">
         <Button @btn-click="throwIt"  name="Throw"/>
         <Button @btn-click="getScore" name="Score"/>
@@ -42,7 +44,7 @@ export default {
       console.log('Get Score');
     },
     log(){
-      console.log(Die.computed);
+      console.log('Hall');
     },
   },
 }

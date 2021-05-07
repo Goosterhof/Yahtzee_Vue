@@ -9,14 +9,14 @@
        <th scope="col" class="text-center">#</th>
       </tr>
      </thead>
-      <ScorePartOne name="name" value="5"/>
+    <ScorePartOne name="ScoreName" value="5"/>
      <thead>
       <tr>
        <th scope="col">Part 2</th>
        <th scope="col" class="text-center">#</th>
       </tr>
      </thead>
-     <ScorePartTwo name="name" value="5"/>
+     <ScorePartTwo name="ScoreName" value="5"/>
    </table>
   </div>
 </template>

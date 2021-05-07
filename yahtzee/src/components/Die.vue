@@ -3,9 +3,7 @@
     <div :class="{'toggle': toggle }"
         @click="toggleClass"
         v-for="die in die"
-        v-html=""
         :data-attribute="die"
-        :die="die"
         class="col text-center p-1" >
       </div>
     </div>
@@ -31,11 +29,6 @@ export default {
     }
   },
   methods: {
-    // dieMethod() {
-    //   for (var i = 0; i < 5; i++) {
-    //     this.dieArr[i].push(Math.ceil(Math.random() * 6))
-    //   }
-    // },
     toggleClass(event) {
        event.target.classList.toggle('toggle')
     }
