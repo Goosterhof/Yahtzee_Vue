@@ -1,14 +1,14 @@
 <template>
    <tbody>
-    <tr v-for="list in scores" >
-     <td scope="row" >{{name}}</td>
+    <tr v-for="score in scores" :key="scores.type">
+     <td scope="row">{{score.type}}</td>
      <td
       :class="{'toggle': toggle }"
       @click="toggleClass"
       class="text-center"
       data-bs-toggle="tooltip"
       data-bs-placement="right"
-      title="Select to keep score">{{value}}</td>
+      title="Select to keep score">{{score.points}}</td>
     </tr>
   </tbody>
 </template>
@@ -17,12 +17,19 @@
 export default {
   name: 'ScorePartOne',
   props: {
-    name: String,
-    value: String,
+    type: String,
+    points: String,
   },
   data() {
     return {
-      scores: 6,
+      scores: [
+        { id: 1, type: "Aces", points: null },
+        { id: 2, type: "Twos", points: null },
+        { id: 3, type: "Threes", points: null },
+        { id: 4, type: "Fours", points: null },
+        { id: 5, type: "Fives", points: null },
+        { id: 6, type: "Sixes", points: null },
+      ],
       toggle: false
     }
   },

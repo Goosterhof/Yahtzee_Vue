@@ -1,8 +1,10 @@
 <template>
   <div :die="die"
-     :class="{'toggle': toggle }"
+       :toggle="toggle"
      @click="toggleClass"
-     class="col text-center p-1" >
+     class="col text-center p-1"
+     >
+     <!-- {{toggle}} -->
    </div>
 </template>
 
@@ -13,16 +15,21 @@ export default {
     die: {
       type: Number,
       required: true
+    },
+    toggle: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      toggle: false,
+      
     }
   },
   methods: {
     toggleClass(event) {
-       event.target.classList.toggle('keep')
+     this.toggle = !this.toggle
+     event.target.classList.toggle('keep')
     }
   }
 }
