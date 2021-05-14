@@ -1,9 +1,6 @@
 <template>
-  <div class="row w-50 m-auto">
-    <div class="col text-center">
-      <Button @btn-click="resetGame"
-            name="Reset"/>
-    </div>
+  <div class="col text-center">
+    <Button @btn-click="resetGame" name="Reset"/>
   </div>
 </template>
 

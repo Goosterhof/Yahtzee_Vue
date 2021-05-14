@@ -1,12 +1,11 @@
 <template>
-  <div class="row w-25 m-auto mt-5">
+  <div class="col">
     <table class="table table-sm">
       <tr>
         <td><h6>Scoreboard</h6></td>
         <td class="text-end"><Button @btn-click="$emit('getScore')" name="Score"/></td>
       </tr>
   </table>
-    <hr>
     <table class="table table-sm">
      <thead>
       <tr>
@@ -51,5 +50,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

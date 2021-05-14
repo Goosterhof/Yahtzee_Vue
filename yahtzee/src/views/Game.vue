@@ -3,12 +3,17 @@
     <div class="row w-50 m-auto">
       <div class="col">
         <h3 class="text-center p-4">Yahtzee</h3>
-        <hr class="w-50 m-auto">
+        <hr>
+
+
+        <Dice/>
+        <Scoreboard/>
+        <Reset/>
+
+
+
       </div>
     </div>
-    <Dice/>
-    <Scoreboard/>
-    <Reset/>
   </div>
 </template>
 
