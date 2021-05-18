@@ -3,7 +3,9 @@
     <table class="table table-sm">
       <tr>
         <td><h6>Scoreboard</h6></td>
-        <td class="text-end"><Button @btn-click="$emit('getScore')" name="Score"/></td>
+        <td class="text-end">
+          <Button name="Score" @btn-click="click"/>
+          </td>
       </tr>
   </table>
     <table class="table table-sm">
@@ -13,39 +15,41 @@
        <th scope="col" class="text-center">#</th>
       </tr>
      </thead>
-    <ScorePartOne name="ScoreName" value="5"/>
+    <PartOne/>
      <thead>
       <tr>
        <th scope="col">Part 2</th>
        <th scope="col" class="text-center">#</th>
       </tr>
      </thead>
-     <ScorePartTwo name="ScoreName" value="5"/>
+     <PartTwo/>
    </table>
   </div>
 </template>
 
 <script>
-import ScorePartOne from './ScorePartOne'
-import ScorePartTwo from './ScorePartTwo'
+import Dice from './Dice'
 import Button from './Button'
+import PartOne from './PartOne'
+import PartTwo from './PartTwo'
 export default {
-  name: 'Scoreblock',
+  name: 'Scoreboard',
   components: {
-    ScorePartOne,
-    ScorePartTwo,
-    Button
+    Dice,
+    Button,
+    PartOne,
+    PartTwo
   },
   data() {
     return {
-
+      dieValues: this.$root.$on('payload')
     }
   },
-  methods: {
-    methodName(){
-
+  methods:{
+    click(value){
+        console.log(this.dieValues);
     }
-  },
+  }
 }
 </script>
 

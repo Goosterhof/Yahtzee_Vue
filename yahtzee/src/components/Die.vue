@@ -1,9 +1,8 @@
 <template>
-  <div :die="die"
-       :toggle="toggle"
+  <div :die="die.value"
         @click="toggleClass"
         class="col text-center p-1"
-     >
+      >
    </div>
 </template>
 
@@ -12,20 +11,17 @@ export default {
   name: 'Die',
   props: {
     die: {
-      type: Number,
+      type: Object,
       required: true,
-      toggle: true,
-    },
-  },
-  data() {
-    return {
     }
-  },
-  computed:{
   },
   methods: {
     toggleClass(event) {
-     this.toggle = !this.toggle
+      if (!this.die.locked) {
+        this.die.locked = true
+      } else {
+        this.die.locked = false
+      }
      event.target.classList.toggle('keep')
     }
   }

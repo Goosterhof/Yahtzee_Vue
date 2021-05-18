@@ -1,10 +1,10 @@
-<template>A
+<template>
   <div class="row">
-    <div class="col" v-for="die in dieArr">
-      <Die class="die" :die="die" :toggle="toggle" />
+    <div class="col" v-for="die in dieArr" :key="dieArr.value">
+      <Die class="die" :die="die"/>
     </div>
-    <Button @btn-click="die" name="Throw" :disable="this.turns == 0 ? true : false" />
-    <p class="text-center p-2">{{ turns }} Turns left</p>
+    <Button @btn-click="die" name="Throw" :disable="this.turns == 0 ? true : false"/>
+    <p :turns="turns" class="text-center p-2">{{ turns }} Turns left</p>
   </div>
 </template>
 
@@ -19,22 +19,28 @@ export default {
     Die,
     Button
   },
+  props: {},
   data(){
     return {
       turns: 3,
-      dieArr: [],
+      dieArr: [
+        {value : undefined, locked: false},
+        {value : undefined, locked: false},
+        {value : undefined, locked: false},
+        {value : undefined, locked: false},
+        {value : undefined, locked: false},
+      ],
     }
-  },
-  computed:{
   },
   methods: {
     die(){
-      if (!this.toggle || undefined) {
-        for (let i = 0; i < 5; i++ ) {
-        this.dieArr[i] = Math.ceil(Math.random() * 6)
+      for (let i = 0; i < 5; i++ ) {
+        if (!this.dieArr[i].locked) {
+          this.dieArr[i].value = Math.ceil(Math.random() * 6)
         }
       }
-      this.turns -= 1;
+    this.turns -= 1;
+    this.$root.$emit('payload', this.dieArr)
     },
   }
 }

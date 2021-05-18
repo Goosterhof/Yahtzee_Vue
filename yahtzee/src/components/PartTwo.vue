@@ -3,7 +3,6 @@
     <tr v-for="score in scores"  >
      <td scope="row">{{score.type}}</td>
      <td
-      :class="{'toggle': toggle }"
       @click="toggleClass"
       class="text-center"
       data-bs-toggle="tooltip"
@@ -15,30 +14,25 @@
 
 <script>
 export default {
-  name: 'ScorePartTwo',
-  props: {
-    name: String,
-    value: String,
-  },
+  name: 'PartTwo',
   data() {
     return {
       scores: [
-        { id: 1, type: "Three of a Kind", points: null },
-        { id: 2, type: "Four of a Kind", points: null },
-        { id: 3, type: "Full House", points: null },
-        { id: 4, type: "Small Straight", points: null },
-        { id: 5, type: "Large Straight", points: null },
-        { id: 6, type: "Yahtzee", points: null },
-        { id: 7, type: "Chance", points: null },
+        { id: 1, type: "Three of a Kind", points: null, locked: false },
+        { id: 2, type: "Four of a Kind", points: null, locked: false  },
+        { id: 3, type: "Full House", points: null, locked: false },
+        { id: 4, type: "Small Straight", points: null, locked: false },
+        { id: 5, type: "Large Straight", points: null, locked: false },
+        { id: 6, type: "Yahtzee", points: null, locked: false },
+        { id: 7, type: "Chance", points: null, locked: false  },
       ],
-      toggle: false
     }
   },
   methods: {
     toggleClass(event) {
        event.target.classList.toggle('toggle')
-    }
-  },
+    },
+  }
 }
 </script>
 
