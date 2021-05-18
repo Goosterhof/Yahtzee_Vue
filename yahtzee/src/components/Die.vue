@@ -1,10 +1,9 @@
 <template>
   <div :die="die"
        :toggle="toggle"
-     @click="toggleClass"
-     class="col text-center p-1"
+        @click="toggleClass"
+        class="col text-center p-1"
      >
-     <!-- {{toggle}} -->
    </div>
 </template>
 
@@ -14,17 +13,15 @@ export default {
   props: {
     die: {
       type: Number,
-      required: true
+      required: true,
+      toggle: true,
     },
-    toggle: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {
-      
     }
+  },
+  computed:{
   },
   methods: {
     toggleClass(event) {

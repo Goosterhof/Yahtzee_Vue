@@ -1,7 +1,7 @@
-<template>
+<template>A
   <div class="row">
-    <div class="col w-100" v-for="die in dieArr" :max="1">
-      <Die class="die" :die="die"/>
+    <div class="col" v-for="die in dieArr">
+      <Die class="die" :die="die" :toggle="toggle" />
     </div>
     <Button @btn-click="die" name="Throw" :disable="this.turns == 0 ? true : false" />
     <p class="text-center p-2">{{ turns }} Turns left</p>
@@ -28,17 +28,14 @@ export default {
   computed:{
   },
   methods: {
-    dieLoop(){
-
-    },
     die(){
-      if (!this.$refs.toggle) {
-        for (let i = 0; i < 5; i++) {
-          this.dieArr[i] = Math.ceil(Math.random() * 6)
+      if (!this.toggle || undefined) {
+        for (let i = 0; i < 5; i++ ) {
+        this.dieArr[i] = Math.ceil(Math.random() * 6)
         }
       }
       this.turns -= 1;
-    }
+    },
   }
 }
 </script>
