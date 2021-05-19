@@ -1,10 +1,13 @@
 <template>
   <div class="col">
+
+    <Dice @Scoreboard="click" />
+
     <table class="table table-sm">
       <tr>
         <td><h6>Scoreboard</h6></td>
         <td class="text-end">
-          <Button name="Score" @btn-click="click"/>
+          <Button name="Score"/>
           </td>
       </tr>
   </table>
@@ -15,14 +18,14 @@
        <th scope="col" class="text-center">#</th>
       </tr>
      </thead>
-    <PartOne/>
+    <PartOne :scoreData="dieScore"/>
      <thead>
       <tr>
        <th scope="col">Part 2</th>
        <th scope="col" class="text-center">#</th>
       </tr>
      </thead>
-     <PartTwo/>
+     <PartTwo :scoreData="dieScore"/>
    </table>
   </div>
 </template>
@@ -42,13 +45,16 @@ export default {
   },
   data() {
     return {
-      dieValues: this.$root.$on('payload')
+      dieScore: []
     }
   },
   methods:{
-    click(value){
-        console.log(this.dieValues);
-    }
+    click(dieValues){
+      dieValues.forEach((item, i) => {
+        this.dieScore[i] = item.value
+      });
+      this.$emit('emitScore', this.dieScore)
+    },
   }
 }
 </script>

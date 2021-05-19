@@ -6,7 +6,6 @@
         <hr>
 
 
-        <Dice/>
         <Scoreboard/>
         <Reset/>
 
@@ -33,11 +32,12 @@ export default{
   },
   data() {
     return {
+
     }
   },
   methods: {
     getScore(){
-      console.log('Get Score');
+      console.log(this.dieArr);
     },
   }
 }

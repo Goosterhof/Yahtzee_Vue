@@ -1,6 +1,6 @@
 <template>
   <div class="col text-center">
-    <Button @btn-click="resetGame" name="Reset"/>
+    <Button @btn-click="resetGame" name="Next"/>
   </div>
 </template>
 

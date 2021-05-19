@@ -1,11 +1,5 @@
 <template>
-    <button
-      @click="onClick()"
-      class="btn btn-outline-dark btn-sm"
-      type="button"
-      :disabled="disable"
-      >{{name}}
-    </button>
+  <button type="button" class="btn btn-outline-dark btn-sm" @click="onClick()" :disabled="disable">{{name}}</button>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col" v-for="die in dieArr" :key="dieArr.value">
+    <div class="col" v-for="die in dieArr">
       <Die class="die" :die="die"/>
     </div>
     <Button @btn-click="die" name="Throw" :disable="this.turns == 0 ? true : false"/>
@@ -8,18 +8,15 @@
   </div>
 </template>
 
-
 <script>
 import Die from './Die'
 import Button from './Button'
-
 export default {
   name: 'Dice',
   components: {
     Die,
     Button
   },
-  props: {},
   data(){
     return {
       turns: 3,
@@ -39,12 +36,9 @@ export default {
           this.dieArr[i].value = Math.ceil(Math.random() * 6)
         }
       }
-    this.turns -= 1;
-    this.$root.$emit('payload', this.dieArr)
+      this.turns -= 1;
+    this.$emit('Scoreboard', this.dieArr)
     },
   }
 }
 </script>
-
-<style scoped>
-</style>

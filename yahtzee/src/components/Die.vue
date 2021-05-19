@@ -1,9 +1,5 @@
 <template>
-  <div :die="die.value"
-        @click="toggleClass"
-        class="col text-center p-1"
-      >
-   </div>
+  <div :die="die.value" @click="toggleClass" class="col text-center p-1"></div>
 </template>
 
 <script>
@@ -26,7 +22,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>

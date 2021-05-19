@@ -15,6 +15,9 @@
 <script>
 export default {
   name: 'PartTwo',
+  props: {
+    scoreData: Array,
+  },
   data() {
     return {
       scores: [
@@ -35,6 +38,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
   .toggle{

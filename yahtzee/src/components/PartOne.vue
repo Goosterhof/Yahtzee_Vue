@@ -15,23 +15,46 @@
 <script>
 export default {
   name: 'PartOne',
-  data() {
-    return {
-      scores: [
-        { id: 1, type: "Aces", points: null, locked: false},
-        { id: 2, type: "Twos", points: null, locked: false},
-        { id: 3, type: "Threes", points: null, locked: false},
-        { id: 4, type: "Fours", points: null, locked: false},
-        { id: 5, type: "Fives", points: null, locked: false},
-        { id: 6, type: "Sixes", points: null, locked: false},
-      ]
+  props: {
+    scoreData: {
+      type: Array,
+      required: true
     }
   },
-  mounted() {
+  data() {
+    return {
+      count: {},
+      counts: {},
+      countss: {},
+      scores: [
+        { id: 1, type: "Aces", points: null, locked: false },
+        { id: 2, type: "Twos", points: null, locked: false },
+        { id: 3, type: "Threes", points: null, locked: false },
+        { id: 4, type: "Fours", points: null, locked: false },
+        { id: 5, type: "Fives", points: null, locked: false },
+        { id: 6, type: "Sixes", points: null, locked: false },
+      ]
+
+    }
   },
+  mounted(){
+    this.scoreData.forEach((i) => { this.count[i] = (this.count[i]||0) + 1 });
+
+    Object.keys(this.count).forEach((item, i) => {
+          this.counts = Object.values(this.count)[i] * Object.keys(this.count).map(Number)[i];
+          this.countss = {[Object.keys(this.count).map(Number)[i]]: this.counts};
+          console.log(this.countss);
+      });
+    },
+
+
+
+
   methods: {
+
     toggleClass(event) {
       event.target.classList.toggle('toggle')
+
     },
   }
 }
