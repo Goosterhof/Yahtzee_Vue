@@ -1,5 +1,7 @@
 <template>
-  <div :die="die.value" @click="toggleClass" class="col text-center p-1"></div>
+  <div :die="die.value"
+       @click="toggleClass"
+       class="col text-center p-1"></div>
 </template>
 
 <script>
@@ -13,12 +15,8 @@ export default {
   },
   methods: {
     toggleClass(event) {
-      if (!this.die.locked) {
-        this.die.locked = true
-      } else {
-        this.die.locked = false
-      }
-     event.target.classList.toggle('keep')
+      this.die.locked ? this.die.locked = false : this.die.locked = true
+      event.target.classList.toggle('keep')
     }
   }
 }

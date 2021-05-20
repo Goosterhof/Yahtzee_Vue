@@ -1,32 +1,37 @@
 <template>
   <div class="col">
-
-    <Dice @Scoreboard="click" />
-
+    <Dice @Scoreboard="click" @turns="turn" />
     <table class="table table-sm">
       <tr>
         <td><h6>Scoreboard</h6></td>
         <td class="text-end">
-          <Button name="Score"/>
-          </td>
+          <Button
+            name="Score"
+            @btn-click="childScore()"
+            :disable="this.turnValue == 0 ? false : true"
+          />
+        </td>
       </tr>
-  </table>
+    </table>
     <table class="table table-sm">
-     <thead>
-      <tr>
-       <th scope="col">Part 1</th>
-       <th scope="col" class="text-center">#</th>
-      </tr>
-     </thead>
-    <PartOne :scoreData="dieScore"/>
-     <thead>
-      <tr>
-       <th scope="col">Part 2</th>
-       <th scope="col" class="text-center">#</th>
-      </tr>
-     </thead>
-     <PartTwo :scoreData="dieScore"/>
-   </table>
+      <thead>
+        <tr>
+          <th scope="col">Part 1</th>
+          <th scope="col" class="text-center">#</th>
+        </tr>
+      </thead>
+      <PartOne :scoreData="dieScore" ref="PartOne" />
+      <thead>
+        <tr>
+          <th scope="col">Part 2</th>
+          <th scope="col" class="text-center">#</th>
+        </tr>
+      </thead>
+      <PartTwo :scoreData="dieScore" ref="PartTwo" />
+    </table>
+    <div class="col text-center">
+      <Button @btn-click="nextGame" name="Next" />
+    </div>
   </div>
 </template>
 
@@ -45,7 +50,8 @@ export default {
   },
   data() {
     return {
-      dieScore: []
+      dieScore: [],
+      turnValue: undefined
     }
   },
   methods:{
@@ -55,9 +61,18 @@ export default {
       });
       this.$emit('emitScore', this.dieScore)
     },
+    turn(value){
+      this.turnValue = value
+    },
+    childScore(){
+      this.$refs.PartOne.getScore()
+      this.$refs.PartTwo.getScore()
+    },
+    nextGame(){
+    
+    }
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

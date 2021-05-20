@@ -1,9 +1,10 @@
 <template>
    <tbody>
-    <tr v-for="score in scores"  >
+    <tr v-for="score in scores">
      <td scope="row">{{score.type}}</td>
      <td
       @click="toggleClass"
+
       class="text-center"
       data-bs-toggle="tooltip"
       data-bs-placement="right"
@@ -16,7 +17,10 @@
 export default {
   name: 'PartTwo',
   props: {
-    scoreData: Array,
+    scoreData: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
@@ -32,8 +36,16 @@ export default {
     }
   },
   methods: {
-    toggleClass(event) {
+    toggleClass(event){
        event.target.classList.toggle('toggle')
+    },
+    getScore(){
+      this.scoreData.sort();
+      let reducer = (a, c) => a + c,
+          aKind = (a, c) => a.filter(x => a.filter(b => b === x).length === c),
+          aKind3 = aKind(this.scoreData, 3),
+          aKind4 = aKind(this.scoreData, 4),
+          aKind5 = aKind(this.scoreData, 5);
     },
   }
 }
@@ -48,5 +60,4 @@ export default {
   .text-center:hover{
   background-color: rgba(0, 0, 0, 0.2);
   }
-
 </style>

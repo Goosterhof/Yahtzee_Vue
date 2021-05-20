@@ -19,13 +19,13 @@ export default {
     scoreData: {
       type: Array,
       required: true
-    }
+    },
+
   },
   data() {
     return {
       count: {},
       counts: {},
-      countss: {},
       scores: [
         { id: 1, type: "Aces", points: null, locked: false },
         { id: 2, type: "Twos", points: null, locked: false },
@@ -34,27 +34,33 @@ export default {
         { id: 5, type: "Fives", points: null, locked: false },
         { id: 6, type: "Sixes", points: null, locked: false },
       ]
-
     }
   },
-  mounted(){
-    this.scoreData.forEach((i) => { this.count[i] = (this.count[i]||0) + 1 });
-
-    Object.keys(this.count).forEach((item, i) => {
-          this.counts = Object.values(this.count)[i] * Object.keys(this.count).map(Number)[i];
-          this.countss = {[Object.keys(this.count).map(Number)[i]]: this.counts};
-          console.log(this.countss);
-      });
-    },
-
-
-
-
   methods: {
-
     toggleClass(event) {
-      event.target.classList.toggle('toggle')
+      this.scores.forEach((item, i) => {
+        this.scores[i].locked ? false : true
+console.log(this.scores[i].locked);
+      });
 
+      event.target.classList.toggle('toggle')
+    },
+    getScore(){
+      this.scoreData.forEach((i) => { this.count[i] = (this.count[i]||0) + 1 });
+      Object.keys(this.count).forEach((item, i) => {
+        this.counts = Object.values(this.count)[i] * Object.keys(this.count).map(Number)[i];
+        this.counts = {[Object.keys(this.count).map(Number)[i]]: this.counts};
+
+        for (let i = 0; i < this.scores.length; i++) {
+          if (!this.scores[i].locked) {
+            if (Object.keys(this.counts) ==  this.scores[i].id) {
+              this.scores[i].points = Object.values(this.counts);
+            }
+          }
+        }
+        this.scores.forEach((i) => {
+        });
+      });
     },
   }
 }
@@ -68,8 +74,4 @@ export default {
   .text-center:hover{
     background-color: rgba(0, 0, 0, 0.2);
   }
-  tbody{
-    font-size: 15px;
-  }
-
 </style>

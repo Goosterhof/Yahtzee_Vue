@@ -38,6 +38,7 @@ export default {
       }
       this.turns -= 1;
     this.$emit('Scoreboard', this.dieArr)
+    this.$emit('turns', this.turns)
     },
   }
 }
