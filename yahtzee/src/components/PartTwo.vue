@@ -2,20 +2,18 @@
    <tbody>
     <tr v-for="score in scores">
      <td scope="row">{{score.type}}</td>
-     <td
-      @click="toggleClass"
-
-      class="text-center"
-      data-bs-toggle="tooltip"
-      data-bs-placement="right"
-      title="Select to keep score">{{score.points}}</td>
+     <Part :score="score" v-html="score.points"/>
     </tr>
   </tbody>
 </template>
 
 <script>
+import Part from './Part'
 export default {
   name: 'PartTwo',
+  components: {
+    Part
+  },
   props: {
     scoreData: {
       type: Array,
@@ -36,28 +34,21 @@ export default {
     }
   },
   methods: {
-    toggleClass(event){
-       event.target.classList.toggle('toggle')
-    },
     getScore(){
       this.scoreData.sort();
       let reducer = (a, c) => a + c,
-          aKind = (a, c) => a.filter(x => a.filter(b => b === x).length === c),
-          aKind3 = aKind(this.scoreData, 3),
-          aKind4 = aKind(this.scoreData, 4),
-          aKind5 = aKind(this.scoreData, 5);
+          aKind = (a, c) => a.filter(x => a.filter(b => b === x).length === c);
+          if (!this.scores.locked) {
+
+            this.scores[0].points = aKind(this.scoreData, 3),
+            this.scores[1].points = aKind(this.scoreData, 4),
+            this.scores[5].points = aKind(this.scoreData, 5);
+
+      }
     },
   }
 }
 </script>
 
-
 <style scoped>
-  .toggle{
-    background: grey!important;
-    color: #fff !important;
-  }
-  .text-center:hover{
-  background-color: rgba(0, 0, 0, 0.2);
-  }
 </style>

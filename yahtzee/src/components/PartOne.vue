@@ -2,25 +2,23 @@
    <tbody>
     <tr v-for="score in scores">
      <td scope="row">{{score.type}}</td>
-     <td
-      @click="toggleClass"
-      class="text-center"
-      data-bs-toggle="tooltip"
-      data-bs-placement="right"
-      title="Select to keep score">{{score.points}}</td>
+     <Part :score="score" v-html="score.points"/>
     </tr>
   </tbody>
 </template>
 
 <script>
+import Part from './Part';
 export default {
   name: 'PartOne',
+  components: {
+    Part
+  },
   props: {
     scoreData: {
       type: Array,
       required: true
-    },
-
+    }
   },
   data() {
     return {
@@ -37,14 +35,6 @@ export default {
     }
   },
   methods: {
-    toggleClass(event) {
-      this.scores.forEach((item, i) => {
-        this.scores[i].locked ? false : true
-console.log(this.scores[i].locked);
-      });
-
-      event.target.classList.toggle('toggle')
-    },
     getScore(){
       this.scoreData.forEach((i) => { this.count[i] = (this.count[i]||0) + 1 });
       Object.keys(this.count).forEach((item, i) => {
@@ -65,13 +55,3 @@ console.log(this.scores[i].locked);
   }
 }
 </script>
-
-<style scoped>
-  .toggle{
-    background: grey!important;
-    color: #fff !important;
-  }
-  .text-center:hover{
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-</style>

@@ -69,7 +69,7 @@ export default {
       this.$refs.PartTwo.getScore()
     },
     nextGame(){
-    
+      console.log(this.dieArr);
     }
   }
 }
