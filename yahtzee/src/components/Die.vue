@@ -17,7 +17,7 @@ export default {
     toggleClass(event) {
       this.die.locked ? this.die.locked = false : this.die.locked = true
       event.target.classList.toggle('keep')
-    }
+    },
   }
 }
 </script>

@@ -1,14 +1,18 @@
 <template>
   <div class="col">
-    <Dice @Scoreboard="click" @turns="turn" />
+    <Dice @dieArr="click"
+          @turns="turn"
+          ref="emptyDie"
+    />
     <table class="table table-sm">
       <tr>
         <td><h6>Scoreboard</h6></td>
         <td class="text-end">
           <Button
             name="Score"
+            :key="reset"
+            :disable="this.turnsValue == 0 ? false : true"
             @btn-click="childScore()"
-            :disable="this.turnValue == 0 ? false : true"
           />
         </td>
       </tr>
@@ -50,8 +54,10 @@ export default {
   },
   data() {
     return {
+      reset: 1,
       dieScore: [],
-      turnValue: undefined
+      turnsValue: undefined,
+      initialValue: undefined,
     }
   },
   methods:{
@@ -62,14 +68,39 @@ export default {
       this.$emit('emitScore', this.dieScore)
     },
     turn(value){
-      this.turnValue = value
+      this.turnsValue = value
     },
     childScore(){
       this.$refs.PartOne.getScore()
       this.$refs.PartTwo.getScore()
     },
     nextGame(){
-      console.log(this.dieArr);
+
+      const ref = this.$refs.emptyDie;
+      for (let i = 0; i < ref.dieArr.length; i++) {
+        ref.dieArr.locked = false
+      }
+      Object.assign(ref.$data, ref.$options.data());
+
+      const one = this.$refs.PartOne;
+        for (let i = 0; i < one.scores.length; i++) {
+          if (!one.scores[i].locked) {
+            one.scores[i].points = null
+          }
+        }
+      const two = this.$refs.PartTwo;
+        for (let i = 0; i < two.scores.length; i++) {
+          if (!two.scores[i].locked) {
+            two.scores[i].points = null
+          }
+        }
+
+      this.buttonKey++
+
+      console.log(Dice.classList);
+
+
+
     }
   }
 }

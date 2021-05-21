@@ -48,8 +48,6 @@ export default {
             }
           }
         }
-        this.scores.forEach((i) => {
-        });
       });
     },
   }
