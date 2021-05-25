@@ -33,6 +33,16 @@
       </thead>
       <PartTwo :scoreData="dieScore" ref="PartTwo" />
     </table>
+
+    <table class="table table-sm">
+  <thead>
+    <tr>
+    <th>Totals</th>
+    <th :total="total"></th>
+    </tr>
+  </thead>
+    </table>
+
     <div class="col text-center">
       <Button @btn-click="nextGame" name="Next" />
     </div>
@@ -41,6 +51,7 @@
 
 <script>
 import Dice from './Dice'
+import Part from './Part'
 import Button from './Button'
 import PartOne from './PartOne'
 import PartTwo from './PartTwo'
@@ -48,6 +59,7 @@ export default {
   name: 'Scoreboard',
   components: {
     Dice,
+    Part,
     Button,
     PartOne,
     PartTwo
@@ -57,14 +69,16 @@ export default {
       reset: 1,
       dieScore: [],
       turnsValue: undefined,
-      initialValue: undefined,
     }
+  },
+  watch:{
+    handler: 'total',
+    immediate: true
   },
   methods:{
     click(dieValues){
-      dieValues.forEach((item, i) => {
-        this.dieScore[i] = item.value
-      });
+      console.log(dieValues);
+      dieValues.forEach((item, i) => {this.dieScore[i] = item.value});
       this.$emit('emitScore', this.dieScore)
     },
     turn(value){
@@ -74,8 +88,10 @@ export default {
       this.$refs.PartOne.getScore()
       this.$refs.PartTwo.getScore()
     },
-    nextGame(){
+    total(){
 
+    },
+    nextGame(){
       const ref = this.$refs.emptyDie;
       for (let i = 0; i < ref.dieArr.length; i++) {
         ref.dieArr.locked = false
@@ -96,10 +112,6 @@ export default {
         }
 
       this.buttonKey++
-
-      console.log(Dice.classList);
-
-
 
     }
   }

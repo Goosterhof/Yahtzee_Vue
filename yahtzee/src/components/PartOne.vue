@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     getScore(){
+      console.log(this.scoreData);
       this.scoreData.forEach((i) => { this.count[i] = (this.count[i]||0) + 1 });
       Object.keys(this.count).forEach((item, i) => {
         this.counts = Object.values(this.count)[i] * Object.keys(this.count).map(Number)[i];
