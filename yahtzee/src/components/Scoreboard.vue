@@ -2,7 +2,7 @@
   <div class="col">
     <Dice @dieArr="click"
           @turns="turn"
-          ref="emptyDie"
+          ref="Dice"
     />
     <table class="table table-sm">
       <tr>
@@ -11,8 +11,8 @@
           <Button
             name="Score"
             :key="reset"
-            :disable="this.turnsValue == 0 ? false : true"
-            @btn-click="childScore()"
+            :disable="this.turns == 0 ? false : true"
+            @btn-click.once="childScore"
           />
         </td>
       </tr>
@@ -24,21 +24,21 @@
           <th scope="col" class="text-center">#</th>
         </tr>
       </thead>
-      <PartOne :scoreData="dieScore" ref="PartOne" />
+      <PartOne :scoreData="dieScore" @pointsOne="pointsOne" ref="PartOne" />
       <thead>
         <tr>
           <th scope="col">Part 2</th>
           <th scope="col" class="text-center">#</th>
         </tr>
       </thead>
-      <PartTwo :scoreData="dieScore" ref="PartTwo" />
+      <PartTwo :scoreData="dieScore" @pointsTwo="pointsTwo" ref="PartTwo" />
     </table>
 
     <table class="table table-sm">
   <thead>
     <tr>
     <th>Totals</th>
-    <th :total="total"></th>
+    <th class="text-right" :total="total">{{totalPoints}}</th>
     </tr>
   </thead>
     </table>
@@ -68,51 +68,64 @@ export default {
     return {
       reset: 1,
       dieScore: [],
-      turnsValue: undefined,
+      onepoints: {},
+      twopoints: {},
+      turns: undefined,
+      totalPoints: 0
     }
   },
-  watch:{
-    handler: 'total',
-    immediate: true
+  computed:{
+    total(){
+
+    },
   },
   methods:{
-    click(dieValues){
-      console.log(dieValues);
-      dieValues.forEach((item, i) => {this.dieScore[i] = item.value});
-      this.$emit('emitScore', this.dieScore)
-    },
-    turn(value){
-      this.turnsValue = value
-    },
+    click(dieValues){dieValues.forEach((item, i) => {this.dieScore[i] = item.value})},
+    turn(value){this.turns = value},
+    pointsOne(value){this.onepoints = value},
+    pointsTwo(value){this.twopoints = value},
     childScore(){
       this.$refs.PartOne.getScore()
       this.$refs.PartTwo.getScore()
     },
-    total(){
+    nextGame(event){
+      console.log(this.allpoints);
+      let die = this.$refs.Dice,
+          one = this.$refs.PartOne,
+          two = this.$refs.PartTwo;
 
-    },
-    nextGame(){
-      const ref = this.$refs.emptyDie;
-      for (let i = 0; i < ref.dieArr.length; i++) {
-        ref.dieArr.locked = false
+      for (let i = 0; i < die.dieArr.length; i++) {
+        die.dieArr[i].locked = false
+        die.dieArr[i].value = undefined
+        die.$children[i].$el.classList.remove('keep')
       }
-      Object.assign(ref.$data, ref.$options.data());
-
-      const one = this.$refs.PartOne;
-        for (let i = 0; i < one.scores.length; i++) {
-          if (!one.scores[i].locked) {
-            one.scores[i].points = null
-          }
+      for (let i = 0; i < one.scores.length; i++) {
+        if (!one.scores[i].locked) {
+          one.scores[i].points = null
         }
-      const two = this.$refs.PartTwo;
-        for (let i = 0; i < two.scores.length; i++) {
-          if (!two.scores[i].locked) {
-            two.scores[i].points = null
-          }
+      }
+      for (let i = 0; i < two.scores.length; i++) {
+        if (!two.scores[i].locked) {
+          two.scores[i].points = null
         }
+      }
 
-      this.buttonKey++
 
+
+      die.turns = 3
+      one.count = {}
+      one.counts = {}
+      two.count = {}
+      this.dieScore = []
+      this.turnsValue = undefined
+      this.reset++
+      [...this.onepoints, ...this.twopoints].forEach((item, i) => {
+        console.log(item.points);
+
+        this.totalPoints = item.points.reduce(function (accumulator, currentValue) {
+          return accumulator + currentValue
+        })
+      });
     }
   }
 }

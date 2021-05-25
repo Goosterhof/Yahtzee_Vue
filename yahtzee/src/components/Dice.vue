@@ -40,8 +40,6 @@ export default {
       this.$emit('dieArr', this.dieArr)
       this.$emit('turns', this.turns)
     },
-
-
   }
 }
 </script>
