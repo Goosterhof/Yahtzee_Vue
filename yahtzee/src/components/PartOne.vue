@@ -1,7 +1,7 @@
 <template>
    <tbody>
     <tr v-for="score in scores">
-     <td scope="row">{{score.type}}</td>
+     <td v-model="score.points" scope="row">{{score.type}}</td>
      <Part :score="score" v-html="score.points"/>
     </tr>
   </tbody>
@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       count: {},
-      counts: {},
       scores: [
         { id: 1, type: "Aces", points: null, locked: false },
         { id: 2, type: "Twos", points: null, locked: false },
@@ -37,22 +36,20 @@ export default {
   methods: {
     getScore(){
       this.scoreData.forEach((i) => {this.count[i] = (this.count[i]||0) + 1});
-      Object.keys(this.count).forEach((item, i) => {
-        this.counts = Object.values(this.count)[i] * Object.keys(this.count).map(Number)[i];
-        this.counts = {
-          [Object.keys(this.count).map(Number)[i]] : this.counts
-        };
+      const counts = {};
 
+      Object.keys(this.count).forEach((item, i) => {
+        const count = Object.values(this.count)[i] * item;
+        counts [item] = count
         for (let i = 0; i < this.scores.length; i++) {
           if (!this.scores[i].locked) {
-            if (Object.keys(this.counts) == this.scores[i].id) {
-              this.scores[i].points = Object.values(this.counts);
-              console.log(Object.values(this.counts));
+            if (item == this.scores[i].id) {
+              this.scores[i].points = count;
             }
           }
         }
       });
-      this.$emit('pointsOne', this.count)
+      this.$emit('emitToScoreboard', this.scores)
     },
   }
 }

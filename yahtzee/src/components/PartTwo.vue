@@ -54,19 +54,16 @@ export default {
               return false;
             };
 
-      for (let i = 0; i < this.scores.length; i++) {
-        if (!this.scores[i].locked) {
-          if (kind(Object.values(this.count), 3)) {this.scores[0].points = this.scoreData.reduce(reducer)};
-          if (kind(Object.values(this.count), 4)) {this.scores[1].points = this.scoreData.reduce(reducer)};
-          if (kind(Object.values(this.count), 5)) {this.scores[5].points = 50};
-          if (house(Object.values(this.count))) {this.scores[2].points = 25};
-          if (straight(this.scoreData, 4)) {this.scores[3].points = 30};
-          if (straight(this.scoreData, 5)) {this.scores[4].points = 40};
-          this.scores[6].points = this.scoreData.reduce(reducer);
 
-        }
-      }
-      this.$emit('pointsTwo', this)
+        kind(Object.values(this.count), 3) && !this.scores[0].locked ? this.scores[0].points = this.scoreData.reduce(reducer) : null;
+        kind(Object.values(this.count), 4) && !this.scores[1].locked ? this.scores[1].points = this.scoreData.reduce(reducer) : null;
+        kind(Object.values(this.count), 5) && !this.scores[5].locked ? this.scores[5].points = 50 : null;
+        house(Object.values(this.count)) && !this.scores[2].locked ? this.scores[2].points = 25 : null;
+        straight(this.scoreData, 4) && !this.scores[3].locked ? this.scores[3].points = 30 : null;
+        straight(this.scoreData, 5) && !this.scores[4].locked? this.scores[4].points = 40 : null;
+        !this.scores[6].locked ? this.scores[6].points = this.scoreData.reduce(reducer) : null;
+
+        this.$emit('emitToScoreboard', this.scores)
     },
   }
 }

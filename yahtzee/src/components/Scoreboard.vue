@@ -24,25 +24,24 @@
           <th scope="col" class="text-center">#</th>
         </tr>
       </thead>
-      <PartOne :scoreData="dieScore" @pointsOne="pointsOne" ref="PartOne" />
+      <PartOne :scoreData="dieScore" @emitToScoreboard="getScores($event, 'scoreOne')" ref="PartOne" />
       <thead>
         <tr>
           <th scope="col">Part 2</th>
           <th scope="col" class="text-center">#</th>
         </tr>
       </thead>
-      <PartTwo :scoreData="dieScore" @pointsTwo="pointsTwo" ref="PartTwo" />
+      <PartTwo :scoreData="dieScore" @emitToScoreboard="getScores($event, 'scoreTwo')" ref="PartTwo" />
     </table>
 
     <table class="table table-sm">
   <thead>
     <tr>
     <th>Totals</th>
-    <th class="text-right" :total="total">{{totalPoints}}</th>
+    <th class="text-center">{{totalPoints}}</th>
     </tr>
   </thead>
     </table>
-
     <div class="col text-center">
       <Button @btn-click="nextGame" name="Next" />
     </div>
@@ -68,47 +67,31 @@ export default {
     return {
       reset: 1,
       dieScore: [],
-      onepoints: [],
-      twopoints: [],
+      scores: [],
       turns: undefined,
+      fromChild: [],
       totalPoints: 0
     }
   },
-  computed:{
-    total(){
-      let all = [this.onepoints, this.twopoints]
-      all.forEach((item, i) => {
-        if (all[i].locked) {
-          console.log(all[i].points);
-          this.totalPoints = Array.of(all[i].points.reduce((a, b) =>  a + b))
-        }
-      });
-
-
-
-      // console.log( Object.assign(this.onepoints, this.two));
-      // let all = [...this.onepoints, ...this.twopoints];
-      // all.forEach((item, i) => {
-      //   console.log(this.onepoints[i].points);
-      //
-      // });
-
-    },
-  },
   methods:{
+    turn(value, name){this.turns = value},
     click(dieValues){dieValues.forEach((item, i) => {this.dieScore[i] = item.value})},
-    pointsOne(value){this.onepoints = value},
-    pointsTwo(value){this.twopoints = value},
-    turn(value){this.turns = value},
-    childScore(){
+    childScore(value){
       this.$refs.PartOne.getScore()
       this.$refs.PartTwo.getScore()
     },
-    nextGame(event){
+    getScores(value, part){
+      value.forEach((item, i) => {
+        if (item.locked) {
+          this.fromChild.push(item.points)
+        }
+      });
+      this.totalPoints = this.fromChild.reduce((a,b) => a + b)
+    },
+    nextGame(){
       let die = this.$refs.Dice,
           one = this.$refs.PartOne,
           two = this.$refs.PartTwo;
-
       for (let i = 0; i < die.dieArr.length; i++) {
         die.dieArr[i].locked = false
         die.dieArr[i].value = undefined
@@ -129,6 +112,7 @@ export default {
       one.counts = {}
       two.count = {}
       this.dieScore = []
+      this.fromChild = []
       this.turnsValue = undefined
       this.reset++
     }
