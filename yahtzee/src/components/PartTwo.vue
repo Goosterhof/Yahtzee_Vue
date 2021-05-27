@@ -66,7 +66,7 @@ export default {
 
         }
       }
-      this.$emit('pointsTwo', this.scores)
+      this.$emit('pointsTwo', this)
     },
   }
 }

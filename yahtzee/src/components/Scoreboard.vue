@@ -68,28 +68,43 @@ export default {
     return {
       reset: 1,
       dieScore: [],
-      onepoints: {},
-      twopoints: {},
+      onepoints: [],
+      twopoints: [],
       turns: undefined,
       totalPoints: 0
     }
   },
   computed:{
     total(){
+      let all = [this.onepoints, this.twopoints]
+      all.forEach((item, i) => {
+        if (all[i].locked) {
+          console.log(all[i].points);
+          this.totalPoints = Array.of(all[i].points.reduce((a, b) =>  a + b))
+        }
+      });
+
+
+
+      // console.log( Object.assign(this.onepoints, this.two));
+      // let all = [...this.onepoints, ...this.twopoints];
+      // all.forEach((item, i) => {
+      //   console.log(this.onepoints[i].points);
+      //
+      // });
 
     },
   },
   methods:{
     click(dieValues){dieValues.forEach((item, i) => {this.dieScore[i] = item.value})},
-    turn(value){this.turns = value},
     pointsOne(value){this.onepoints = value},
     pointsTwo(value){this.twopoints = value},
+    turn(value){this.turns = value},
     childScore(){
       this.$refs.PartOne.getScore()
       this.$refs.PartTwo.getScore()
     },
     nextGame(event){
-      console.log(this.allpoints);
       let die = this.$refs.Dice,
           one = this.$refs.PartOne,
           two = this.$refs.PartTwo;
@@ -109,9 +124,6 @@ export default {
           two.scores[i].points = null
         }
       }
-
-
-
       die.turns = 3
       one.count = {}
       one.counts = {}
@@ -119,13 +131,6 @@ export default {
       this.dieScore = []
       this.turnsValue = undefined
       this.reset++
-      [...this.onepoints, ...this.twopoints].forEach((item, i) => {
-        console.log(item.points);
-
-        this.totalPoints = item.points.reduce(function (accumulator, currentValue) {
-          return accumulator + currentValue
-        })
-      });
     }
   }
 }

@@ -36,20 +36,23 @@ export default {
   },
   methods: {
     getScore(){
-      this.scoreData.forEach((i) => { this.count[i] = (this.count[i]||0) + 1 });
+      this.scoreData.forEach((i) => {this.count[i] = (this.count[i]||0) + 1});
       Object.keys(this.count).forEach((item, i) => {
         this.counts = Object.values(this.count)[i] * Object.keys(this.count).map(Number)[i];
-        this.counts = {[Object.keys(this.count).map(Number)[i]]: this.counts};
+        this.counts = {
+          [Object.keys(this.count).map(Number)[i]] : this.counts
+        };
 
         for (let i = 0; i < this.scores.length; i++) {
           if (!this.scores[i].locked) {
-            if (Object.keys(this.counts) ==  this.scores[i].id) {
+            if (Object.keys(this.counts) == this.scores[i].id) {
               this.scores[i].points = Object.values(this.counts);
+              console.log(Object.values(this.counts));
             }
           }
         }
       });
-      this.$emit('pointsOne', this.scores)
+      this.$emit('pointsOne', this.count)
     },
   }
 }
