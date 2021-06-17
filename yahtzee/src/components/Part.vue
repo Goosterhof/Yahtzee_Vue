@@ -20,7 +20,9 @@ export default {
   },
   methods: {
     toggleClass(event) {
+      // TODO :: next line can be rewritten to this.score.locked = !this.score.locked
       this.score.locked ? this.score.locked = false : this.score.locked = true
+      // TODO :: no need to toggle this this way, it can be done the Vue way with :class={keep:this.score.locked} in the td in the template
       event.target.classList.toggle('toggle')
     },
   }

@@ -11,6 +11,7 @@
 </template>
 
 <script>
+// TODO :: Dice and Button component aren't used here, can be deleted
 import Dice from '../components/Dice'
 import Button from '../components/Button'
 import Scoreboard from '../components/Scoreboard'

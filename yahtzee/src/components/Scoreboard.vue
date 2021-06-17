@@ -8,6 +8,7 @@
       <tr>
         <td><h6>Scoreboard</h6></td>
         <td class="text-end">
+          <!-- TODO :: no need for the ? false : true, just add a !  -->
           <Button
             name="Score"
             :key="reset"

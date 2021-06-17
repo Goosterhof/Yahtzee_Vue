@@ -1,7 +1,9 @@
 <template>
    <tbody>
     <tr v-for="score in scores">
+      <!-- TODO :: why the v-model here? -->
      <td v-model="score.points" scope="row">{{score.type}}</td>
+     <!-- TODO :: it's cleaner to show the points in the Part component -->
      <Part :score="score" v-html="score.points"/>
     </tr>
   </tbody>
@@ -39,8 +41,11 @@ export default {
       const counts = {};
 
       Object.keys(this.count).forEach((item, i) => {
+        // TODO :: can be this.count[item] * item, then we cond't need i above
         const count = Object.values(this.count)[i] * item;
         counts [item] = count
+        
+        // TODO :: can use forof loop
         for (let i = 0; i < this.scores.length; i++) {
           if (!this.scores[i].locked) {
             if (item == this.scores[i].id) {

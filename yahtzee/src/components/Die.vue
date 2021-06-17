@@ -15,7 +15,9 @@ export default {
   },
   methods: {
     toggleClass(event) {
+      // TODO :: next line can be rewritten to this.die.locked = !this.die.locked
       this.die.locked ? this.die.locked = false : this.die.locked = true
+      // TODO :: no need to toggle this this way, it can be done the Vue way with :class={keep:this.die.locked} in the div in the template
       event.target.classList.toggle('keep')
     },
   }
